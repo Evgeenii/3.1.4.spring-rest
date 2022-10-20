@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<meta charset="UTF-8">
+<title>Обновить информацию</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    Привет, <b th:inline="text"> [[${#httpServletRequest.remoteUser}]]</b>!
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+<h2>Обновить информацию</h2>
+<form action="#" th:action="@{/user-update/{id}(id=${user.getId()})}"  th:object="${user}" method="post">
+    <label for="id">Id</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="firstName">Имя</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+    <br/>
+    <label for="lastName">Фамилия</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+    <br/>
+    <label for="email">Возраст</label>
+    <input type="text" th:field="*{age}" id="email" placeholder="Age">
+    <br/>
+    <label for="login">Логин</label>
+    <input type="text" th:field="*{login}" id="login"/>
+    <br/>
+    <label for="password">Пароль</label>
+    <input class="form-control" type="password" th:field="*{password}" id="password"/>
+    <br/>
+    <input type="submit" value="Обновить информацию">
+    <label for="roles">Права доступа</label>
+    <br/>
+    <select multiple th:field="*{roles}" id="roles">
+        <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}">
+        </option>
+    </select>
+    <br/>
+</form>
+</body>
+</html>

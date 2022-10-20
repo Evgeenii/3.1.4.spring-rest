@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+          crossorigin="anonymous">
+    <title>Пользователь</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    Привет, <b th:inline="text"> [[${#httpServletRequest.remoteUser}]]</b>!
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+<table class="table table-striped table-bordered">
+    <thead class="table-header">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Права доступа</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:each="role : ${user.getRoles()}" th:value="${role.getId()}" th:text="${role.getName()}"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
