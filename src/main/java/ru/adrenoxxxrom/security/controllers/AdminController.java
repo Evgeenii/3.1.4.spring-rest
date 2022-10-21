@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.adrenoxxxrom.security.model.Role;
 import ru.adrenoxxxrom.security.model.User;
 import ru.adrenoxxxrom.security.services.RoleService;
 import ru.adrenoxxxrom.security.services.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class AdminController {

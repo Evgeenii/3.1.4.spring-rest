@@ -1,14 +1,25 @@
 package ru.adrenoxxxrom.security.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.adrenoxxxrom.security.services.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class MainController {
-    private static final String INDEX_PAGE = "index";
+    private static final String REDIRECT_TO_LOGIN_PAGE = "redirect:/login";
+    private static final String REDIRECT_TO_ADMIN_PAGE = "redirect:/admin";
+    private static final String REDIRECT_TO_USER_PAGE = "redirect:/user";
 
     @GetMapping(value = "/")
-    public String getUserPage() {
-        return INDEX_PAGE;
+    public String getRedirectToUserPage(Principal principal) {
+        if (principal == null) {
+            return REDIRECT_TO_LOGIN_PAGE;
+        } else if (principal.getName().equals("admin")) {
+            return REDIRECT_TO_ADMIN_PAGE;
+        }
+        return REDIRECT_TO_USER_PAGE;
     }
 }

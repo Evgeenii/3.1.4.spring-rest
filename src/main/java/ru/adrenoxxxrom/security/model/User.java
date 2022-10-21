@@ -4,10 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -22,12 +19,13 @@ public class User implements UserDetails {
     private String lastName;
     @Column(name = "age")
     private Byte age;
-    @Column(name = "login", unique = true)
-    private String login;
+    @Column(name = "username", unique = true)
+    private String username;
     @Column(name = "password")
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Role> roles;
 
     public User() {
     }
@@ -64,14 +62,6 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     @Override
     public String getPassword() {
         return this.password;
@@ -79,25 +69,32 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
     public String getRolesToString() {
-        return getRoles()
-                .toString()
-                .replace("[", "")
-                .replace("]", "");
+        StringBuilder roleNames = new StringBuilder();
+        for (Role role : getRoles()) {
+            roleNames.append(role.getName())
+                    .append(", ");
+        }
+        return roleNames.toString()
+                .replaceAll(", $", "");
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -140,15 +137,15 @@ public class User implements UserDetails {
                Objects.equals(getFirstName(), user.getFirstName()) &&
                Objects.equals(getLastName(), user.getLastName()) &&
                Objects.equals(getAge(), user.getAge()) &&
-               Objects.equals(getLogin(), user.getLogin()) &&
-               Objects.equals(getPassword(), user.getPassword())
+               Objects.equals(getPassword(), user.getPassword()) &&
+               Objects.equals(getUsername(), user.getUsername())
                && Objects.equals(getRoles(), user.getRoles());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getFirstName(), getLastName(),
-                getAge(), getLogin(), getPassword(), getRoles());
+                getAge(), getUsername(), getPassword(), getRoles());
     }
 
     @Override
@@ -158,7 +155,7 @@ public class User implements UserDetails {
                ", firstName='" + firstName + '\'' +
                ", lastName='" + lastName + '\'' +
                ", age=" + age +
-               ", login='" + login + '\'' +
+               ", username='" + username + '\'' +
                ", password='" + password + '\'' +
                ", roles=" + roles +
                '}';

@@ -9,7 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.adrenoxxxrom.security.model.Role;
+import ru.adrenoxxxrom.security.model.User;
+import ru.adrenoxxxrom.security.services.RoleService;
 import ru.adrenoxxxrom.security.services.UserService;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,9 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     @Autowired
-    public SecurityConfig(SuccessUserHandler successUserHandler, UserService userService) {
+    public SecurityConfig(SuccessUserHandler successUserHandler, UserService userService, RoleService roleService) {
         this.successUserHandler = successUserHandler;
         this.userService = userService;
+
     }
 
     @Override
@@ -49,5 +56,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @PostConstruct
+    public void initDbUsers() {
+        Role roleAdmin = new Role("ROLE_ADMIN");
+        Role roleUser = new Role("ROLE_USER");
+        Set<Role> adminRoles = new HashSet<>();
+        Set<Role> userRoles = new HashSet<>();
+        Collections.addAll(adminRoles, roleAdmin, roleUser);
+        Collections.addAll(userRoles, roleUser);
+
+        User admin = new User();
+        admin.setId(1L);
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setFirstName("Евгений");
+        admin.setLastName("Казьмин");
+        admin.setAge((byte) 30);
+        admin.setRoles(adminRoles);
+
+        userService.saveUser(admin);
+
+        User user = new User();
+        user.setId(2L);
+        user.setUsername("user");
+        user.setPassword("user");
+        user.setFirstName("Василий");
+        user.setLastName("Обухов");
+        user.setAge((byte) 20);
+        user.setRoles(userRoles);
+
+        userService.saveUser(user);
     }
 }

@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String getUserPage(Model model, Principal principal) {
-        Long id = userService.getUserByName(principal.getName()).getId();
+        Long id = userService.getUserByUsername(principal.getName()).getId();
         model.addAttribute("user", userService.getUserById(id));
         return USER_PAGE;
     }

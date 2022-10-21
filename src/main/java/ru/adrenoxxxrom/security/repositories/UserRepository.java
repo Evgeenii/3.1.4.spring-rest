@@ -6,5 +6,5 @@ import ru.adrenoxxxrom.security.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User getUserByLogin(String login);
+    User getUserByUsername(String username);
 }

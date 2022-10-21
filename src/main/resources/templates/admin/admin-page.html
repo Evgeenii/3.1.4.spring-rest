@@ -36,7 +36,7 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.age}"></td>
-        <td th:text="${user.getRolesToString}"></td>
+        <td th:text="${user.getRolesToString()}"></td>
         <td>
             <a th:href="@{user-update/{id}(id=${user.id})}">Редактировать</a>
             <a th:href="@{user-delete/{id}(id=${user.id})}">Удалить</a>

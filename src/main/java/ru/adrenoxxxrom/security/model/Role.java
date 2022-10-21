@@ -3,30 +3,34 @@ package ru.adrenoxxxrom.security.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
     @Column(name = "name")
     private String name;
     @Transient
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    private Set<User> users;
 
     public Role() {
     }
 
-    public List<User> getUsers() {
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
@@ -53,16 +57,11 @@ public class Role implements GrantedAuthority {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return getId().equals(role.getId()) &&
-               getName().equals(role.getName()) &&
+        return Objects.equals(getId(), role.getId()) &&
+               Objects.equals(getName(), role.getName()) &&
                Objects.equals(getUsers(), role.getUsers());
     }
 

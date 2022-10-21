@@ -25,14 +25,14 @@
     <label for="email">Возраст</label>
     <input type="text" th:field="*{age}" id="email" placeholder="Age">
     <br/>
-    <label for="login">Логин</label>
-    <input type="text" th:field="*{login}" id="login"/>
+    <label for="username">Логин</label>
+    <input type="text" th:field="*{username}" id="username"/>
     <br/>
     <label for="password">Пароль</label>
     <input class="form-control" type="password" th:field="*{password}" id="password"/>
     <br/>
     <input type="submit" value="Обновить информацию">
-    <label for="roles">Права доступа</label>
+    <label for="roles"></label>
     <br/>
     <select multiple th:field="*{roles}" id="roles">
         <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}">
