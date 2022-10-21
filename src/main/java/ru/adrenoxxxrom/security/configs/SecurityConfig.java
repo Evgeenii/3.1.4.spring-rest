@@ -62,12 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void initDbUsers() {
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
-        Set<Role> adminRoles = new HashSet<>();
-        Set<Role> userRoles = new HashSet<>();
-        Collections.addAll(adminRoles, roleAdmin, roleUser);
-        Collections.addAll(userRoles, roleUser);
 
         User admin = new User();
+        Set<Role> adminRoles = new HashSet<>();
+        Collections.addAll(adminRoles, roleAdmin, roleUser);
         admin.setId(1L);
         admin.setUsername("admin");
         admin.setPassword("admin");
@@ -75,10 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         admin.setLastName("Казьмин");
         admin.setAge((byte) 30);
         admin.setRoles(adminRoles);
-
         userService.saveUser(admin);
 
         User user = new User();
+        Set<Role> userRoles = new HashSet<>();
+        Collections.addAll(userRoles, roleUser);
         user.setId(2L);
         user.setUsername("user");
         user.setPassword("user");
@@ -86,7 +85,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         user.setLastName("Обухов");
         user.setAge((byte) 20);
         user.setRoles(userRoles);
-
         userService.saveUser(user);
     }
 }
