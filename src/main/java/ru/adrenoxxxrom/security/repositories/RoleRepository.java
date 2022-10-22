@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 import ru.adrenoxxxrom.security.model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    List<Role> findAllById(Long id);
 }
