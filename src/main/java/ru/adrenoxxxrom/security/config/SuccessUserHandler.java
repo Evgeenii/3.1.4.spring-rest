@@ -1,4 +1,4 @@
-package ru.adrenoxxxrom.security.configs;
+package ru.adrenoxxxrom.security.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

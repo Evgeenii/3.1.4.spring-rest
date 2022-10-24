@@ -1,4 +1,4 @@
-package ru.adrenoxxxrom.security.services;
+package ru.adrenoxxxrom.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.adrenoxxxrom.security.model.User;
-import ru.adrenoxxxrom.security.repositories.UserRepository;
+import ru.adrenoxxxrom.security.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,10 @@
-package ru.adrenoxxxrom.security.services;
+package ru.adrenoxxxrom.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.adrenoxxxrom.security.model.Role;
-import ru.adrenoxxxrom.security.repositories.RoleRepository;
+import ru.adrenoxxxrom.security.repository.RoleRepository;
 
 import java.util.List;
 

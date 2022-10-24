@@ -1,4 +1,4 @@
-package ru.adrenoxxxrom.security.services;
+package ru.adrenoxxxrom.security.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.adrenoxxxrom.security.model.User;
