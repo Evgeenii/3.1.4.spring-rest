@@ -1,50 +1,237 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
-          crossorigin="anonymous">
+<html lang="en" style="background: #f2f2f2;height: auto;">
 
-    <title>Админ</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Панель Админа Готово</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 </head>
 
-<body>
-<div sec:authorize="isAuthenticated()">
-    HELLEW, <b th:inline="text"> [[${#httpServletRequest.remoteUser}]]</b>!
-    <form th:action="@{/logout}" method="POST">
-        <input type="submit" value="Logout"/>
-    </form>
+<body style="height: auto;background: rgb(242,242,242);">
+<div class="row">
+    <div class="col offset-0" style="width: auto;">
+        <nav class="navbar navbar-light navbar-expand-lg sticky-top"
+             style="background: #343a40;height: 50px;width: auto;">
+            <div class="container-fluid"><a class="navbar-brand" href="#"><span
+              style="color: rgb(255, 255, 255);">user</span></a>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <div class="col offset-11 align-self-center me-auto"
+                         style="height: 50px;padding-top: 5px;padding-left: 0px;">
+                        <ul class="navbar-nav" style="transform: translate(0px);margin-right: 0px;margin-left: 0px;">
+                            <li class="nav-item" style="margin-right: 0px;"><a class="nav-link" href="#"><span
+                              style="color: rgb(193, 190, 190);">Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
-<table class="table table-striped table-bordered">
-    <caption>
-        <a th:href="@{/user-create}" class="btn btn-secondary btn-sm mb-3"> Добавить пользователя </a>
-    </caption>
-    <thead class="table-dark">
-    <tr>
-        <th>Id</th>
-        <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Возраст</th>
-        <th>Права доступа</th>
-        <th>Действие</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.getRolesToString()}"></td>
-        <td>
-            <a th:href="@{user-update/{id}(id=${user.id})}">Редактировать</a>
-            <a th:href="@{user-delete/{id}(id=${user.id})}">Удалить</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="row gx-3 align-items-stretch" style="background: #f2f2f2;height: auto;">
+    <div class="col-2" style="height: auto;">
+        <ul class="nav nav-tabs flex-column d-flex" style="background: #ffffff;height: 1094px;">
+            <li class="nav-item border rounded"
+                style="color: var(--bs-nav-tabs-link-active-bg);height: 38.5px;margin-bottom: 3px;"><a
+              class="nav-link active" href="#"
+              style="background: var(--bs-blue);color: var(--bs-nav-tabs-link-active-bg);">Admin</a></li>
+            <li class="nav-item border rounded"><a class="nav-link" href="#">User</a></li>
+        </ul>
+    </div>
+    <div class="col-8 offset-0" style="height: auto;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <h1 style="font-size: 32px;">Admin panel<small></small></h1>
+                    </div>
+                </div>
+                <div class="col-xxl-8" style="width: 808.98px;">
+                    <div class="border rounded-0 d-block">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item border-secondary shadow-sm" role="presentation"><a
+                              class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Users table</a></li>
+                            <li class="nav-item border rounded-0" role="presentation"><a class="nav-link" role="tab"
+                                                                                         data-bs-toggle="tab"
+                                                                                         href="#tab-2">New User</a></li>
+                        </ul>
+                        <div class="tab-content" style="width: 923.969px;">
+                            <div class="tab-pane active" role="tabpanel" id="tab-1">
+                                <div class="row"
+                                     style="background: #f8f9fa;border-width: 31px;border-color: rgb(222,226,230);border-right-style: initial;margin-left: 0px;margin-right: 0px;width: 782.969px;">
+                                    <div class="col-xxl-12" style="width: 886.969px;">
+                                        <h1
+                                          style="font-size: 16.87px;height: 32.25px;padding-right: 0px;padding-left: 10px;padding-top: 6px;">
+                                            All users</h1>
+                                    </div>
+                                </div>
+                                <div class="table-responsive-md"
+                                     style="background: #ffffff;width: 782.969px;padding-bottom: 15px;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr >
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">First Name</th>
+                                            <th class="text-center">Last Name</th>
+                                            <th class="text-center">Age</th>
+                                            <th class="text-center">Role</th>
+                                            <th class="text-center">Edit</th>
+                                            <th class="text-center">Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each = "user : ${users}">
+                                            <td class="text-start" th:text="${user.id}"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <button class="btn btn-primary btn-sm border rounded border-success"
+                                                        type="submit"
+                                                        style="width: 75.0312px;padding-top: 6px;background: rgba(32,149,135,0.76);"
+                                                        data-bs-toggle="modal" th:data-bs-target="${'#editModal' + user.id}">Edit
+                                                </button>
+                                            </td>
+                                            <td class="text-center" >
+                                                <button class="btn btn-primary btn-sm border rounded border-success"
+                                                        type="button"
+                                                        style="width: 75.0312px;padding-top: 6px;background: rgb(220,53,69);"
+                                                        data-bs-toggle="modal" data-bs-target="#user-delete">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane border-secondary" role="tabpanel" id="tab-2"
+                                 style="background: #ffffff;padding-left: 0px;margin-right: 0px;height: 500px;width: 782.98px;">
+                                <div class="col-md-6 col-lg-1 col-xxl-12 offset-0 align-self-center ms-auto"
+                                     style="padding-right: 15px;margin-right: 0px;padding-left: 0px;background: #ffffff;width: 563.312px;position: static;height: 300px;">
+                                    <form
+                                      style="padding-right: 0px;margin-right: 0px;height: 277px;margin-bottom: 0px;padding-left: 0px;margin-left: -51px;padding-top: 28px;width: 749.297px;">
+                                        <p class="text-center" style="margin-bottom: -2px;width: 418.422px;">First
+                                            Name</p><input class="form-control" type="text" placeholder="First Name"
+                                                           style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 418.422px;margin-top: -21px;">Last Name</p>
+                                        <input class="form-control" type="text" placeholder="First Name"
+                                               style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 418.422px;margin-top: -21px;">Age</p><input
+                                      class="form-control" type="text" placeholder="Age"
+                                      style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 418.422px;margin-top: -21px;">Login</p>
+                                        <input class="form-control" type="text" placeholder="Login"
+                                               style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 418.422px;margin-top: -21px;">Password</p>
+                                        <input class="form-control" type="password" placeholder="Password"
+                                               style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
+                                        <button class="btn btn-primary bg-success border rounded" type="submit"
+                                                style="width: 162.0312px;margin-right: 15px;margin-left: 131px;">Add new
+                                            user
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade text-center" role="dialog" tabindex="-1" th:id="${'#editModal' + user.id}"
+     style="transform: translate(17px);padding-top: 0px;padding-right: 0px;overflow: hidden;">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Create User</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="visible"
+                      style="margin-right: 0px;height: 376px;font-size: 7px;padding-top: 0px;padding-right: 20px;padding-bottom: 0px;margin-top: 20px;overflow: hidden;">
+                    <input class="border rounded-0 form-control" type="text"
+                           style="width: 228px;margin-bottom: 15px;margin-right: 0px;padding-right: 16px;"
+                           placeholder="ID"><input class="border rounded-0 form-control" type="text"
+                                                   style="width: 228px;margin-bottom: 15px;"
+                                                   placeholder="First name"><input class="border rounded-0 form-control"
+                                                                                   type="text"
+                                                                                   style="width: 228px;margin-bottom: 15px;"
+                                                                                   placeholder="Last name"><input
+                  class="border rounded-0 form-control" type="text" style="width: 228px;margin-bottom: 15px;"
+                  placeholder="Age"><input class="border rounded-0 form-control" type="text"
+                                           style="width: 228px;margin-bottom: 15px;" placeholder="Login"><input
+                  class="form-control" type="password" style="width: 228px;" placeholder="Password"><select
+                  class="form-select" style="margin-top: 26px;width: 228px;">
+                    <optgroup label="This is a group">
+                        <option value="12" selected="">This is item 1</option>
+                        <option value="13">This is item 2</option>
+                        <option value="14">This is item 3</option>
+                    </optgroup>
+                </select></form>
+            </div>
+            <div class="modal-footer"
+                 style="padding-top: 27px;margin-top: 73px;padding-right: 6px;transform: translate(0px);background: #ffffff;">
+                <button class="btn btn-light border rounded" type="button"
+                        style="background: rgb(108,117,125);color: rgb(255,255,255);padding-right: 8px;padding-left: 8px;margin-right: 0px;"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button class="btn btn-primary border rounded" type="button">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade text-center" role="dialog" tabindex="-1" id="user-delete"
+     style="transform: translate(17px);padding-top: 0px;padding-right: 0px;overflow: hidden;">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Delete User</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="visible"
+                      style="margin-right: 0px;height: 376px;font-size: 7px;padding-top: 0px;padding-right: 20px;padding-bottom: 0px;margin-top: 20px;overflow: hidden;">
+                    <input class="border rounded-0 form-control" type="text"
+                           style="width: 228px;margin-bottom: 15px;margin-right: 0px;padding-right: 16px;"
+                           placeholder="ID" input="disabled"><input class="border rounded-0 form-control" type="text"
+                                                                    style="width: 228px;margin-bottom: 15px;"
+                                                                    placeholder="First name"><input
+                  class="border rounded-0 form-control" type="text" style="width: 228px;margin-bottom: 15px;"
+                  placeholder="Last name"><input class="border rounded-0 form-control" type="text"
+                                                 style="width: 228px;margin-bottom: 15px;" placeholder="Age"><input
+                  class="border rounded-0 form-control" type="text" style="width: 228px;margin-bottom: 15px;"
+                  placeholder="Login"><input class="form-control" type="password" style="width: 228px;"
+                                             placeholder="Password"><select class="form-select"
+                                                                            style="margin-top: 26px;width: 228px;">
+                    <optgroup label="This is a group">
+                        <option value="12" selected="">This is item 1</option>
+                        <option value="13">This is item 2</option>
+                        <option value="14">This is item 3</option>
+                    </optgroup>
+                </select></form>
+            </div>
+            <div class="modal-footer"
+                 style="padding-top: 27px;margin-top: 73px;padding-right: 6px;transform: translate(0px);background: #ffffff;">
+                <button class="btn btn-light border rounded" type="button"
+                        style="background: rgb(108,117,125);color: rgb(255,255,255);padding-right: 8px;padding-left: 8px;margin-right: 0px;"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button class="btn btn-primary border rounded" type="button" style="background: rgb(220,53,69);">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/smart-forms.min.js"></script>
 </body>
+
 </html>
