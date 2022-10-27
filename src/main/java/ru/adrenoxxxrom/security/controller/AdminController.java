@@ -11,6 +11,8 @@ import ru.adrenoxxxrom.security.model.User;
 import ru.adrenoxxxrom.security.service.RoleService;
 import ru.adrenoxxxrom.security.service.UserService;
 
+import java.security.Principal;
+
 @Controller
 public class AdminController {
     private static final String ADMIN_PAGE = "admin/admin-page";
@@ -28,7 +30,8 @@ public class AdminController {
 
     @GetMapping(value = "/admin")
     public String getAdminPage(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("usersList", userService.getAllUsers());
+        model.addAttribute("rolesList", roleService.getRoles());
         return ADMIN_PAGE;
     }
 
@@ -45,7 +48,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("/user-update-form/{id}")
+   @GetMapping("/user-update/{id}")
     public String getUserFormForUpdate(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.getRoles());
@@ -53,7 +56,7 @@ public class AdminController {
     }
 
     @PostMapping("/user-update/{id}")
-    public String updateUser(Long id, @ModelAttribute("user") User user) {
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user) {
         userService.updateUser(id, user);
         return REDIRECT_TO_ADMIN_PAGE;
     }

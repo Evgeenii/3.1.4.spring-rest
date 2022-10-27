@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE})
+            cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn (name = "user_id"),
@@ -96,7 +96,8 @@ public class User implements UserDetails {
                     .append(", ");
         }
         return roleNames.toString()
-                .replaceAll(", $", "");
+                .replaceAll(", $", "")
+                .replaceAll("ROLE_", "");
     }
 
     public void setRoles(Set<Role> roles) {
