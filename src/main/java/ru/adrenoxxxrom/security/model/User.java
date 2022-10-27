@@ -23,8 +23,7 @@ public class User implements UserDetails {
     private String username;
     @Column(name = "password")
     private String password;
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn (name = "user_id"),
