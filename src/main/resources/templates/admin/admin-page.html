@@ -7,23 +7,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Панель Админа Готово</title>
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 </head>
-
+<!--body-->
 <body style="height: auto;background: rgb(242,242,242);">
 <div class="row">
     <div class="col offset-0" style="width: auto;">
+        <!--navbar-->
         <nav class="navbar navbar-light navbar-expand-lg sticky-top"
              style="background: #343a40;height: 50px;width: auto;">
-            <div class="container-fluid"><a class="navbar-brand" href="#"><span
-              style="color: rgb(255, 255, 255);">user</span></a>
+            <div class="container-fluid">
+                <a class="navbar-brand">
+                    <span style="color: rgb(255, 255, 255);"
+                          th:text="'logged as ' +
+                          ${user.getUsername()} +
+                          ' with roles: ' +
+                          ${user.getRolesToString()}">
+                    </span></a>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <div class="col offset-11 align-self-center me-auto"
                          style="height: 50px;padding-top: 5px;padding-left: 0;">
-                        <ul class="navbar-nav" style="transform: translate(0px);margin-right: 0;margin-left: 0;">
-                            <li class="nav-item" style="margin-right: 0px;"><a class="nav-link" href="#"><span
-                              style="color: rgb(193, 190, 190);">Logout</span></a></li>
+                        <ul class="navbar-nav" style="transform: translate(0px);
+                        margin-right: 0;margin-left: 0;">
+                            <li class="nav-item" style="margin-right: 0px;">
+                                <a class="nav-link" href="/logout">
+                                    <span style="color: rgb(193, 190, 190);">Logout</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -33,12 +43,16 @@
 </div>
 <div class="row gx-3 align-items-stretch" style="background: #f2f2f2;height: auto;">
     <div class="col-2" style="height: auto;">
+        <!--sidebar-->
         <ul class="nav nav-tabs flex-column d-flex" style="background: #ffffff;height: 1094px;">
             <li class="nav-item border rounded"
-                style="color: var(--bs-nav-tabs-link-active-bg);height: 38.5px;margin-bottom: 3px;"><a
-              class="nav-link active" href="#"
-              style="background: var(--bs-blue);color: var(--bs-nav-tabs-link-active-bg);">Admin</a></li>
-            <li class="nav-item border rounded"><a class="nav-link" href="#">User</a></li>
+                style="color: var(--bs-nav-tabs-link-active-bg);height: 38.5px;margin-bottom: 3px;">
+                <a class="nav-link active" href="#"
+                   style="background: var(--bs-blue);color: var(--bs-nav-tabs-link-active-bg);">Admin</a>
+            </li>
+            <li class="nav-item border rounded">
+                <a class="nav-link" href="user/">User</a>
+            </li>
         </ul>
     </div>
     <div class="col-8 offset-0" style="height: auto;">
@@ -51,6 +65,7 @@
                 </div>
                 <div class="col-xxl-8" style="width: 808.98px;">
                     <div class="border rounded-0 d-block">
+                        <!--tabs-->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item border-secondary shadow-sm" role="presentation">
                                 <a class="nav-link active"
@@ -63,18 +78,23 @@
                                    href="#tab-2">New User</a></li>
                         </ul>
                         <div class="tab-content" style="width: auto;">
+                            <!--tab-1-->
                             <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                <div class="row"
-                                     style="background: #f8f9fa;border-width: 31px;border-color: rgb(222,226,230);border-right-style: initial;margin-left: 0px;margin-right: 0px;width: 782.969px;">
-                                    <div class="col-xxl-12" style="width: 886.969px;">
-                                        <h1
-                                          style="font-size: 16.87px;height: 32.25px;padding-right: 0px;padding-left: 10px;padding-top: 6px;">
+                                <div class="row" style="background: #f8f9fa;
+                                border-width: 30px;border-color: rgb(222,226,230);
+                                border-right-style: initial;margin-left: 0px;
+                                margin-right: 0px;width: 780px;">
+                                    <div class="col-xxl-12" style="width: 890px;">
+                                        <h1 style="font-size: 16px;
+                                        height: 30px;padding-right: 0px;
+                                        padding-left: 10px;padding-top: 5px;">
                                             All users</h1>
                                     </div>
                                 </div>
+                                <!--table-->
                                 <div class="table-responsive-md"
                                      style="background: #ffffff;width: auto;padding-bottom: 15px;">
-                                    <table class="table table-bordered">
+                                    <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th class="text-center">ID</th>
@@ -99,6 +119,7 @@
                                                         style="width: 75.0312px;padding-top: 6px;background: rgba(32,149,135,0.76);"
                                                         data-bs-toggle="modal" th:data-bs-target="*{'#user-edit' + user.id}">Edit
                                                 </button>
+                                                <!--edit-modal-window-->
                                                 <div class="modal fade" th:id="${'user-edit' + user.id}"
                                                      data-backdrop="static"
                                                      data-keyboard="false" tabindex="-1">
@@ -175,14 +196,11 @@
                                                                                                 id="roles"
                                                                                                 name="roles"
                                                                                                 size="2">
-                                                                                            <option th:each="role : ${user.roles}"
+                                                                                            <option th:each="role : ${rolesList}"
                                                                                                     th:text="${role.getNameToString()}"
                                                                                                     th:value="${role.getId()}">
                                                                                             </option>
                                                                                         </select>
-
-
-
                                                                                     </div>
                                                                                 </div>
                                                                             </form>
@@ -208,6 +226,7 @@
                                                         style="width: 75.0312px;padding-top: 6px;background: rgb(220,53,69);"
                                                         data-bs-toggle="modal" th:data-bs-target="*{'#user-delete' + user.id}">Delete
                                                 </button>
+                                                <!--delete-modal-window-->
                                                 <div class="modal fade" th:id="${'user-delete' + user.id}"
                                                      data-backdrop="static"
                                                      data-keyboard="true" tabindex="-1">
@@ -284,7 +303,7 @@
                                                                                                 id="delete-roles"
                                                                                                 name="roles"
                                                                                                 size="2">
-                                                                                            <option th:each="role : ${user.roles}"
+                                                                                            <option th:each="role : ${rolesList}"
                                                                                                     th:text="${role.getNameToString()}"
                                                                                                     th:selected="${role.getNameToString()}"
                                                                                                     th:value="${role.getId()}"
@@ -316,83 +335,75 @@
                                     </table>
                                 </div>
                             </div>
+                            <!--tab-2-new-user-form-->
                             <div class="tab-pane border-secondary" role="tabpanel" id="tab-2"
                                  style="background: #ffffff;padding-left: 0px;margin-right: 0px;height: 500px;width: 800px;">
                                 <div class="col-md-6 col-lg-1 col-xxl-12 offset-0 align-self-center ms-auto"
                                      style="padding-right: 15px;margin-right: 0px;padding-left: 0px;background: #ffffff;width: 560px;position: static;height: 300px;">
-
-
-
                                     <form style="padding-right: 0px;margin-right: 0px;height: 277px;margin-bottom: 0px;padding-left: 0px;margin-left: -51px;padding-top: 28px;width: 750px;"
-                                          th:action="@{/user-create}"
+                                          th:action="@{/touch-user}"
                                           th:object="${user}"
                                           th:method="post"
-                                          id="formCreate"
-                                    >
+                                          id="formCreate">
                                         <p class="text-center" style="margin-bottom: -2px;width: 420px;">
                                             First Name</p>
                                         <input class="form-control"
                                                type="text"
                                                placeholder="First Name"
                                                th:value="${user.firstName}"
+                                               th:name="firstName"
                                                style="margin-bottom: 30px;width: 420px;padding-right: 15px;">
-
-                                        <p class="text-center" style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                            Last Name</p>
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">Last Name</p>
                                         <input class="form-control"
                                                type="text"
                                                placeholder="First Name"
                                                th:value="${user.lastName}"
+                                               th:name="lastName"
                                                style="margin-bottom: 30px;width: 420px;padding-right: 15px;">
-
                                         <p class="text-center"
-                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                            Age</p>
+                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">Age</p>
                                         <input class="form-control"
                                                type="text"
                                                placeholder="Age"
                                                th:value="${user.age}"
+                                               th:name="age"
                                                style="margin-bottom: 30px;width: 420px;padding-right: 15px;">
-
                                         <p class="text-center"
-                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                            Login</p>
+                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">Login</p>
                                         <input class="form-control"
                                                type="text"
                                                placeholder="Login"
+                                               th:name="username"
                                                th:value="${user.username}"
                                                style="margin-bottom: 30px;width: 420px;padding-right: 15px;">
-
-                                        <p class="text-center" style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                            Password</p>
+                                        <p class="text-center"
+                                           style="margin-bottom: -2px;width: 420px;margin-top: -21px;">Password</p>
                                         <input class="form-control"
                                                type="password"
                                                placeholder="Password"
                                                th:value="${user.password}"
+                                               th:name="password"
                                                style="margin-bottom: 30px;width: 418px;padding-right: 15px;">
-
-                                       &lt;!&ndash; <div class="form-group text-center"
+                                        <div class="form-group text-center"
                                              style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                            <p class="text-center" style="margin-bottom: -2px;width: 420px;margin-top: -21px;">
-                                                Role</p>
+                                            <p class="text-center"
+                                               style="margin-bottom: -2px;width: 420px;margin-top: -21px;">Role</p>
                                             <select multiple
                                                     class="form-control form-control-sm mb-3"
                                                     id="rolesCreate"
-                                                    name="roles"
+                                                    th:name="roles"
                                                     size="2">
-                                                <option th:each="role : ${user.roles}"
-                                                        th:text="${role.getNameToString()}"
-                                                        th:value="${role.getId()}">
+                                                <option th:each="role : ${rolesList}"
+                                                        th:text="${role.name}"
+                                                        th:value="${role.id}">
                                                 </option>
                                             </select>
-                                        </div>&ndash;&gt;
+                                        </div>
                                         <button class="btn btn-primary bg-success border rounded" type="submit"
                                                 style="width: 160px;margin-right: 15px;margin-left: 130px;">Add new user
                                         </button>
                                     </form>
-
-
-
                                 </div>
                             </div>
                         </div>

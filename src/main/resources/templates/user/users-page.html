@@ -4,19 +4,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Панель Админа Готово</title>
+    <title>User Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 </head>
 
 <body style="height: 1000px;background: rgb(242,242,242);">
     <div class="row">
         <div class="col">
-            <nav class="navbar navbar-light navbar-expand-md" style="background: #343a40;height: 50px;">
-                <div class="container-fluid"><a class="navbar-brand" href="#"><span style="color: rgb(255, 255, 255);">user</span></a>
+            <nav class="navbar navbar-light navbar-expand-lg sticky-top"
+                 style="background: #343a40;height: 50px;width: auto;">
+                <div class="container-fluid">
+                    <a class="navbar-brand">
+                    <span style="color: rgb(255, 255, 255);"
+                          th:text="'logged as ' +
+                          ${user.getUsername()} +
+                          ' with roles: ' +
+                          ${user.getRolesToString()}">
+                    </span></a>
                     <div class="collapse navbar-collapse" id="navcol-1">
-                        <div class="col offset-11 align-self-center me-auto" style="height: 50px;padding-top: 5px;padding-left: 0px;">
-                            <ul class="navbar-nav" style="transform: translate(0px);margin-right: 0px;margin-left: 0px;">
-                                <li class="nav-item" style="margin-right: 0px;"><a class="nav-link" href="#"><span style="color: rgb(193, 190, 190);">Logout</span></a></li>
+                        <div class="col offset-11 align-self-center me-auto"
+                             style="height: 50px;padding-top: 5px;padding-left: 0;">
+                            <ul class="navbar-nav" style="transform: translate(0px);margin-right: 0;margin-left: 0;">
+                                <li class="nav-item" style="margin-right: 0px;">
+                                    <a class="nav-link" href="/logout">
+                                        <span style="color: rgb(193, 190, 190);">Logout</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -35,7 +47,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div>
-                            <h1 style="font-size: 32px;">Admin panel<small></small></h1>
+                            <h1 style="font-size: 32px;">User panel<small></small></h1>
                         </div>
                     </div>
                 </div>
@@ -46,30 +58,23 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="table-responsive-md border rounded-0" style="background: #ffffff;padding-bottom: 15px;">
+                        <div class="table-responsive-md border rounded-0" style="background: #ffffff;padding-bottom: 15px; width: auto">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">ID</th>
                                         <th class="text-center">First Name</th>
                                         <th class="text-center">Last Name</th>
                                         <th class="text-center">Age</th>
                                         <th class="text-center">Role</th>
-                                        <th class="text-center">Edit</th>
-                                        <th class="text-center">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-start"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td></td>
-                                        <td class="text-center"><button class="btn btn-primary btn-sm border rounded border-success" type="submit" style="width: 75.0312px;padding-top: 6px;background: rgba(32,149,135,0.76);" data-bs-toggle="modal" data-bs-target="#user-edit">Edit</button></td>
-                                        <td class="text-center"><button class="btn btn-primary btn-sm border rounded border-success" type="button" style="width: 75.0312px;padding-top: 6px;background: rgb(220,53,69);" data-bs-toggle="modal" data-bs-target="#user-delete">Delete</button></td>
-                                    </tr>
-                                    <tr></tr>
+                                    <tr th:each="user: ${user}">
+                                        <td class="text-center" th:text="${user.firstName}"></td>
+                                        <td class="text-center" th:text="${user.lastName}"></td>
+                                        <td class="text-center" th:text="${user.age}"></td>
+                                        <td class="text-center" th:text="${user.getRolesToString()}"></td>
+                                        </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -80,5 +85,4 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -8,10 +8,11 @@ import ru.adrenoxxxrom.security.model.User;
 import ru.adrenoxxxrom.security.service.RoleService;
 import ru.adrenoxxxrom.security.service.UserService;
 
+import java.security.Principal;
+
 @Controller
 public class AdminController {
     private static final String ADMIN_PAGE = "admin/admin-page";
-    private static final String USER_CREATE_PAGE = "admin/user-create-page";
     private static  final String REDIRECT_TO_ADMIN_PAGE = "redirect:/admin";
     private final UserService userService;
     private final RoleService roleService;
@@ -23,19 +24,14 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin")
-    public String getAdminPage(Model model) {
+    public String getAdminPage(Model model, Principal principal,
+                               @ModelAttribute ("user") User user) {
+        Long id = userService.getUserByUsername(principal.getName()).getId();
+        model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("rolesList", roleService.getRoles());
         return ADMIN_PAGE;
     }
-
-/*
-    @GetMapping(value = "/user-create")
-    public String getUserFormForCreate(Model model) {
-        model.addAttribute("roles", roleService.getRoles());
-        return USER_CREATE_PAGE;
-    }
-*/
 
     @PostMapping("/touch-user")
     public String createUser(@ModelAttribute ("user") User user) {
@@ -44,7 +40,7 @@ public class AdminController {
     }
 
     @PostMapping("/user-update/{id}")
-    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user) {
+    public String updateUser(@PathVariable Long id, User user) {
         userService.updateUser(id, user);
         return REDIRECT_TO_ADMIN_PAGE;
     }
