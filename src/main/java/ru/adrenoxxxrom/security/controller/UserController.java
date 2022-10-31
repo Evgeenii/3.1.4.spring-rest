@@ -10,7 +10,7 @@ import java.security.Principal;
 
 @Controller
 public class UserController {
-    private static final String USER_PAGE = "user/users-page";
+    private static final String USER_PAGE = "user/user-page";
     private final UserService userService;
 
     @Autowired

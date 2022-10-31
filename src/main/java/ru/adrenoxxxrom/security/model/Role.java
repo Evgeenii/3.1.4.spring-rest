@@ -67,6 +67,7 @@ public class Role implements GrantedAuthority {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Role role = (Role) o;
         return Objects.equals(getId(), role.getId()) &&
                Objects.equals(getName(), role.getName()) &&

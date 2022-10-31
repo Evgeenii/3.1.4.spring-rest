@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class RoleServiceImpl implements RoleService {
-    private RoleRepository rolesRepository;
+    private final RoleRepository rolesRepository;
 
     @Autowired
     public RoleServiceImpl(RoleRepository rolesRepository) {

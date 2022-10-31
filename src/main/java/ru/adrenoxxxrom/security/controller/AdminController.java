@@ -13,6 +13,7 @@ import java.security.Principal;
 @Controller
 public class AdminController {
     private static final String ADMIN_PAGE = "admin/admin-page";
+    private static final String ADMIN_USER_PAGE = "admin/admin-user-page";
     private static  final String REDIRECT_TO_ADMIN_PAGE = "redirect:/admin";
     private final UserService userService;
     private final RoleService roleService;
@@ -24,13 +25,20 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin")
-    public String getAdminPage(Model model, Principal principal,
-                               @ModelAttribute ("user") User user) {
+    public String getAdminPage(Model model, Principal principal, @ModelAttribute ("user") User user) {
         Long id = userService.getUserByUsername(principal.getName()).getId();
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("rolesList", roleService.getRoles());
+        model.addAttribute("newUser", new User());
         return ADMIN_PAGE;
+    }
+
+    @GetMapping(value = "/admin-user")
+    public String getUserPage(Model model, Principal principal) {
+        Long id = userService.getUserByUsername(principal.getName()).getId();
+        model.addAttribute("user", userService.getUserById(id));
+        return ADMIN_USER_PAGE;
     }
 
     @PostMapping("/touch-user")
