@@ -24,9 +24,9 @@ public class AdminRESTController {
     }
 
     @PostMapping(value = "/create-user")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.saveUser(user);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping(value = "/users")

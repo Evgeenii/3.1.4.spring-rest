@@ -17,15 +17,12 @@ async function editFormFill(id) {
                 fistNameField.value = `${user.firstName}`;
                 lastNameField.value = `${user.lastName}`;
                 ageField.value = `${user.age}`;
-                passwordField.value = `${user.password}`;
+                getRolesForEditForm();
             })
 
     } else {
         alert(`HTTP Error, ${userResponse.status}`)
     }
-
-    await getRolesForEditForm();
-
 }
 
 async function updateUser() {
@@ -59,13 +56,9 @@ async function updateUser() {
 
     await fetch(url, method).then(() => {
         $('#edit-close-btn').click();
-        $('tbody').clear();
         getAdminPage();
 
     })
-
-
-
 }
 
 async function getRolesForEditForm() {

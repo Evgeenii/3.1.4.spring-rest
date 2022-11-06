@@ -1,5 +1,6 @@
+const url = '/api/user'
+
 async function getUserPage() {
-    const url = '/api/user'
     let response = await fetch(url);
 
     if (response.ok) {
@@ -8,8 +9,6 @@ async function getUserPage() {
     } else {
         alert(`HTTP Error, ${response.status}`)
     }
-
-
 }
 
 function fillTableBody(userData) {

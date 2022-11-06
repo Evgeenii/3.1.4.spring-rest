@@ -1,9 +1,8 @@
 const tbody = document.getElementById("tbody");
+const url = '/api/users';
+
 async function getAdminPage() {
-
-    const url = '/api/users';
     let response = await fetch(url);
-
     if (response.ok) {
         let usersJSONData =
             await response.json().then(usersJSONData => fillPage(usersJSONData, tbody))
@@ -13,8 +12,7 @@ async function getAdminPage() {
 }
 
 function fillPage(userData, tbody) {
-    tbody = document.getElementById("tbody");
-
+    $(tbody).empty();
 
     userData.forEach(user => {
         let roleNames = [];
@@ -42,7 +40,8 @@ function fillPage(userData, tbody) {
                            type="button"
                            style="width: 75.0312px;padding-top: 6px;background: rgb(220,53,69);"
                            data-bs-toggle="modal" 
-                           data-bs-target="#deleteModal"> Delete
+                           data-bs-target="#deleteModal"
+                           onclick="deleteFormFill(${user.id})"> Delete
                    </button>
             </td>`
         tbody.append(tRow);
