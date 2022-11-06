@@ -29,10 +29,12 @@ createForm.addEventListener('submit',   (event) => {
         },
         body: JSON.stringify(user)
     }
-     fetch(url, method).then(() => {
-         $('#tab-1').click();
-         getAdminPage();
-     });
+    fetch(createUserURL, method)
+        .then(() => {
+            $('#createForm').trigger("reset");
+            $('#tab-1').show();
+            $('#tab-2').hide();
+        })
 })
 
 
