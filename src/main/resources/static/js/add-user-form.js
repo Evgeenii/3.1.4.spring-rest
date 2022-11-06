@@ -31,6 +31,7 @@ createForm.addEventListener('submit',   (event) => {
     }
      fetch(url, method).then(() => {
          $('#tab-1').click();
+         getAdminPage();
      });
 })
 
