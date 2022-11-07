@@ -50,4 +50,3 @@ function fillPage(userData, tbody) {
 }
 
 getAdminPage();
-

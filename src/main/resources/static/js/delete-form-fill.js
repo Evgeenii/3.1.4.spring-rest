@@ -1,11 +1,8 @@
-const deleteForm = document.getElementById('deleteForm');
 const idDeleteField = document.getElementById('delete-id');
 const fistNameDeleteField = document.getElementById('delete-firstName');
 const lastNameDeleteField = document.getElementById('delete-lastName');
 const ageDeleteField = document.getElementById('delete-age');
 const loginDeleteField = document.getElementById('delete-username');
-const passwordDeleteField = document.getElementById('delete-password');
-
 
 async function deleteFormFill(id) {
     const userByIdURL = '/api/users/' + id;
@@ -17,6 +14,7 @@ async function deleteFormFill(id) {
                 fistNameDeleteField.value = `${user.firstName}`;
                 lastNameDeleteField.value = `${user.lastName}`;
                 ageDeleteField.value = `${user.age}`;
+                loginDeleteField.value = `${user.username}`;
 
             })
 
@@ -33,26 +31,10 @@ async function deleteUser() {
         headers: {
             "Content-Type": "application/json"
         }
-
     }
 
     await fetch(url, method).then(() => {
         $('#delete-close-btn').click();
         getAdminPage();
-
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

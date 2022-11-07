@@ -32,7 +32,4 @@ function fillTableBody(userData) {
         .append(tableRow);
 }
 
-
-
-
-
+getUserPage();

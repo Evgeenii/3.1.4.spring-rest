@@ -6,7 +6,6 @@ const ageField = document.getElementById('edit-age');
 const loginField = document.getElementById('edit-username');
 const passwordField = document.getElementById('edit-password');
 
-
 async function editFormFill(id) {
     const userByIdURL = '/api/users/' + id;
     let userResponse = await fetch(userByIdURL);
@@ -57,7 +56,6 @@ async function updateUser() {
     await fetch(url, method).then(() => {
         $('#edit-close-btn').click();
         getAdminPage();
-
     })
 }
 
@@ -78,11 +76,3 @@ async function getRolesForEditForm() {
         alert(`HTTP Error, ${rolesResponse.status}`)
     }
 }
-
-
-
-
-
-
-
-

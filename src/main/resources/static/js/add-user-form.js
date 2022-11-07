@@ -1,7 +1,7 @@
 const createUserURL = '/api/create-user/'
 const createForm = document.getElementById('createForm');
 
-createForm.addEventListener('submit',   (event) => {
+createForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let roles = []
 
@@ -19,7 +19,6 @@ createForm.addEventListener('submit',   (event) => {
         username: $('#add-user-username').val(),
         password: $('#add-user-password').val(),
         roles: roles
-
     }
 
     const method = {
@@ -32,13 +31,7 @@ createForm.addEventListener('submit',   (event) => {
     fetch(createUserURL, method)
         .then(() => {
             $('#createForm').trigger("reset");
-            $('#tab-1').show();
-            $('#tab-2').hide();
+            $(`.nav-tabs a[href="#tab-1"]`).tab("show");
+            getAdminPage();
         })
 })
-
-
-
-
-
-

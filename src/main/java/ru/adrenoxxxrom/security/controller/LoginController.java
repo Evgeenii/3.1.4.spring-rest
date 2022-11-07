@@ -11,9 +11,4 @@ public class LoginController {
     public String getRedirectToUserPage() {
         return REDIRECT_TO_LOGIN_PAGE;
     }
-
-    @GetMapping(value = "/hello")
-    public String getHelloPage() {
-        return "hello-world";
-    }
 }
