@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class AdminRESTController {
-    UserService userService;
-    RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
     public AdminRESTController(UserService userService, RoleService roleService) {
@@ -41,7 +41,7 @@ public class AdminRESTController {
         return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/update-user/{id}")
+    @PutMapping (value = "/update-user/{id}")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody User user, @PathVariable Long id) {
         userService.updateUser(id, user);
         return ResponseEntity.ok(HttpStatus.OK);

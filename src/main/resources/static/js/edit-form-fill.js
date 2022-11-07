@@ -16,6 +16,7 @@ async function editFormFill(id) {
                 fistNameField.value = `${user.firstName}`;
                 lastNameField.value = `${user.lastName}`;
                 ageField.value = `${user.age}`;
+                loginField.value = `${user.username}`;
                 getRolesForEditForm();
             })
 
@@ -46,7 +47,7 @@ async function updateUser() {
     }
 
     const method = {
-        method: 'PATCH',
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         },

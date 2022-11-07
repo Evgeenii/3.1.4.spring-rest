@@ -47,7 +47,7 @@ public class AdminController {
         return REDIRECT_TO_ADMIN_PAGE;
     }
 
-    @PostMapping("/user-update/{id}")
+    @PutMapping("/user-update/{id}")
     public String updateUser(@PathVariable Long id, User user) {
         userService.updateUser(id, user);
         return REDIRECT_TO_ADMIN_PAGE;
